@@ -1,12 +1,3 @@
-# audioPlugin
-
-
-## Introduction
-This plugin adds a way to send audio frames to PulseAudio
-
-Example code:
-
-``` javascript
 var ok = loadPluginLib('/opt/vmbase/extensions/', 'libaudioPlugin');
 if( ok == false ) {
     print('cannot load lib, stop.');
@@ -39,32 +30,3 @@ while( player.getQueueSize() > 0 ) {
 }
 
 player.stop();
-```
-
-This sends 10 blocks of 88000 samples, waits for the sound queue to be empty and then ends.
-
-## Compilation
-
-This lib depends on lib *pulse-simple*
-
-Compilation can be made with QMake or CMake
-
-**Compilation with QMake**
-
-``` bash
-qmake
-make
-```
-
-The resulting shared library (libaudioPlugin) is copied into /opt/vmbase/extensions
-
-**Compilation with CMake**
-
-``` bash
-mkdir build
-cd build
-cmake ../
-make
-make install
-``
-The resulting shared library (libaudioPlugin) is copied into /opt/vmbase/extensions
