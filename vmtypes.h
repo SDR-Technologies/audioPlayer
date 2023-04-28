@@ -28,6 +28,11 @@ typedef struct  {
     int16_t q;
 } CS16 ;
 
+typedef struct  {
+    int8_t i;
+    int8_t q;
+} CS8b ;
+
 
 typedef struct {
     uint32_t blkid ;
@@ -43,13 +48,21 @@ typedef struct {
     float int_to_float_substract ;
 } CS16Block ;
 
+enum IQSampleType {
+    iqCF32 = 0,
+    iqCS16 = 1,
+    iqCS8  = 2
+}  ;
+
 
 typedef struct {
     uint32_t blkid ;
-    bool floatdata ;
+    //bool floatdata ;
+    IQSampleType iqtype ;
+    bool streamdata ; // if false : chunks, typically S3 board
 
     void *data ;
-    int  channels ;
+    uint16_t  channel_count ; // number of channels. Channels are numbered [0..channel_count[
 
     uint32_t length ;
     uint32_t buff_length ;
@@ -68,6 +81,23 @@ typedef struct {
     char *json_attribute ;
 } CpxBlock ;
 
+inline bool isCF32( CpxBlock *b ) {
+    return( b->iqtype == iqCF32 );
+}
+
+inline bool isCS16( CpxBlock *b ) {
+    return( b->iqtype == iqCS16 );
+}
+
+inline size_t iqSampleSize( CpxBlock *b ) {
+    if( b->iqtype == iqCF32) {
+        return( sizeof(TYPECPX));
+    }
+    if( b->iqtype == iqCS16 ) {
+        return( sizeof(CS16));
+    }
+    return( sizeof(CS8b));
+}
 typedef struct {
     uint32_t blkid ;
     float *data ;

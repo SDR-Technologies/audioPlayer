@@ -22,5 +22,6 @@ HEADERS += \
     audioplayer.h
 
 DISTFILES += \
+    README.md \
     example.js \ 
     CMakeLists.txt

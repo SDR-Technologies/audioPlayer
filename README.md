@@ -45,7 +45,15 @@ This sends 10 blocks of 88000 samples, waits for the sound queue to be empty and
 
 ## Compilation
 
-This lib depends on lib *pulse-simple*
+This lib depends on the following libs :
+
+* *pulse-simple*
+* libsamplerate0*
+
+to install them :  
+``` bash
+sudo apt-get install libsamplerate0-dev libpulse-dev
+``` 
 
 Compilation can be made with QMake or CMake
 

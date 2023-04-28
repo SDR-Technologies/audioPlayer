@@ -4,7 +4,7 @@
  * @author     Sylvain AZARIAN - s.azarian@sdr-technologies.fr  *
  * @project    SDR Virtual Machine                              *
  *                                                              *
- * Code propriete exclusive de la société SDR-Technologies SAS  *
+ * This code is provided as an example                          *
  *                                                              *
  ****************************************************************/
 
@@ -108,7 +108,7 @@ void AudioPlayer::push(CpxBlock *b) {
     if( b == nullptr )
         return ;
 
-    if( b->floatdata == false ) {
+    if( isCF32(b) == false ) {
         fprintf( stderr, "AudioPlayer accepts FLOAT IQ!\n") ;
         fflush(stderr);
         free( b->data );
@@ -119,6 +119,7 @@ void AudioPlayer::push(CpxBlock *b) {
         if( b->data != nullptr )
             free(b->data);
         free(b);
+        return ;
     }
 
     if( (params.running == false) || (params.terminate==true) ) {
